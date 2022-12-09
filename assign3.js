@@ -8,8 +8,10 @@ const galleryJsonPath = path.join(__dirname, "data", "galleries.json");
 const paintingsJsonPath = path.join(__dirname, "data", "paintings-nested.json");
 
 
-
-
+app.get("/",(req,res)=>{
+  res.send('Hello')
+})
+let artists;
 fs.readFile(artistJsonPath, (err,data,resp) => {
                   if (err){
                      const mssg = "could not get artist json data"
@@ -18,15 +20,18 @@ fs.readFile(artistJsonPath, (err,data,resp) => {
 
                    //data valid, send requests
                    } else{
-                     const artists = JSON.parse(data)
                      
-                       // return JSON for artist
+                      artists = JSON.parse(data)
+                     
+                  
+                    } //end of else
+          });
+                     // return JSON for artist
                      app.get('/api/artists', (req, res) => {
                         res.json(artists);
-                        
-                        });
-                    
-                    // Returns JSON for all artists from the specified country. This should be case insensitive
+                    })
+
+                     // Returns JSON for all artists from the specified country. This should be case insensitive
                     app.get('/api/artists/:country', (req, res) => {
                     
                         const errMssg = "cannot get country JSON"
@@ -39,10 +44,9 @@ fs.readFile(artistJsonPath, (err,data,resp) => {
                         }
                      
                     });
-                    } //end of else
-        });
 
 
+let galleries;
 fs.readFile(galleryJsonPath, (err,data,resp) => {
                   if (err){
                       const mssg = "could not get gallery json data"
@@ -51,7 +55,10 @@ fs.readFile(galleryJsonPath, (err,data,resp) => {
 
                   //data valid, send requests
                  } else{
-                    const galleries = JSON.parse(data)
+                     galleries = JSON.parse(data)
+
+                  }//end of else
+         })
 
                     // Returns JSON for all galleries
                     app.get('/api/galleries', (req, res) => {
@@ -71,10 +78,8 @@ fs.readFile(galleryJsonPath, (err,data,resp) => {
                     res.json(errMssg)
                     }
                 });
-                  }//end of else
-         })
    
-
+let paintings;
  fs.readFile(paintingsJsonPath, (err,data,resp) => {
                    if (err){
                     const mssg = "could not get paintings json data"
@@ -84,7 +89,12 @@ fs.readFile(galleryJsonPath, (err,data,resp) => {
                     //data valid, send requests
                   } else{
 
-                     const paintings = JSON.parse(data);
+                     paintings = JSON.parse(data);
+                  
+                } //end of 'else' 
+
+                 
+        });
 
                      //return request for painting with certain ID
                      app.get('/api/painting/:id', (req, res) => {
@@ -174,12 +184,8 @@ fs.readFile(galleryJsonPath, (err,data,resp) => {
                   else{
                        res.json(errMssg)
                     }
-                   });
-                  
-                } //end of 'else' 
+                   });         
 
-                 
-        });
 
             
 
