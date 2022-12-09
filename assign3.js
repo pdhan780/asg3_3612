@@ -8,9 +8,8 @@ const galleryJsonPath = path.join(__dirname, "data", "galleries.json");
 const paintingsJsonPath = path.join(__dirname, "data", "paintings-nested.json");
 
 
-app.get("/",(req,res)=>{
-  res.send('Hello')
-})
+
+
 let artists;
 fs.readFile(artistJsonPath, (err,data,resp) => {
                   if (err){
