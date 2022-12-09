@@ -192,5 +192,5 @@ let paintings;
 
 
 
-//test module on local host port 3000
+//test module on local host port 3000, host from glitch when testing done
 app.listen(3000, () => console.log('listening on port 3000'));
